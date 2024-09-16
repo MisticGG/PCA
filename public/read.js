@@ -1,8 +1,8 @@
-const socket = io('https://937ce922-531a-467d-8897-68fe4b248773-00-1yu7q9n8uur5p.picard.replit.dev:8080/');
+const socket = io('https://bookish-halibut-v979x9gr97wfxx5g-8080.app.github.dev/');
 
 window.onload = async () => {
 		try {
-				let response = await fetch('https://937ce922-531a-467d-8897-68fe4b248773-00-1yu7q9n8uur5p.picard.replit.dev:8080/chat/datas');
+				let response = await fetch('https://bookish-halibut-v979x9gr97wfxx5g-8080.app.github.dev/chat/datas');
 				if (!response.ok) {
 						throw new Error('Network response was not ok');
 				}
