@@ -8,7 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
   
-  <body class="chat">
+  <body class="chat" id="chat">
+
 		<div id="optionBar">
 			<div id = "goBackDiv">
 				<a id="goBack">Home</a>
@@ -22,13 +23,22 @@
 		</div>
 		<div id="bigDiv">			
 			
-		</div>		
+		</div>
+
 		<div class="form">			
 			<form class="form" method="POST" id="sender">				
 				<input autocomplete="off" required placeholder="Send a message" id="message" name="Message" type="text">				
 				<button style="display:none" type="submit">Send</button>
 			</form>
-		</div>	
+		</div>
+		<div class="optionsPopupDiv">
+			<div id="optionsPopup">
+				<h1>Settings</h1>
+				<h3>Choose background image</h3>
+				<button type="button" id="toggleButton">Change Background</button>
+
+			</div>
+		</div>
 		<script>
 			document.getElementById("room").innerHTML = sessionStorage.getItem("Chat");
 		</script>

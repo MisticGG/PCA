@@ -1,6 +1,19 @@
+const images = ['/images/home.jpg', 'images/home2.jpg', 'images/home3.jpg', 'images/home4.jpg', 'images/home5.jpg'];
+let currentIndex = 0;
+
+const button = document.getElementById('toggleButton');
+const body = document.getElementById('chat')
+
 let User = "";
 let Chat = "";
 let Message = "";
+
+function updateImage() {
+  currentIndex = (currentIndex + 1) % images.length;
+  body.style.backgroundImage ="url(/images/home2.jpg)";
+}
+
+button.addEventListener('click', updateImage);
 
 function handleForm(event) {
   event.preventDefault();
@@ -75,4 +88,3 @@ function FBI(username){
 	return name;
 }
 
-   
