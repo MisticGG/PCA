@@ -1,70 +1,91 @@
-const socket = io('https://bookish-halibut-v979x9gr97wfxx5g-8080.app.github.dev/');
+const socket = io('https://reimagined-space-broccoli-9r4rprq5ggqcxg5p-8080.app.github.dev:8080');
 
-window.onload = async () => {
-		try {
-				let response = await fetch('https://bookish-halibut-v979x9gr97wfxx5g-8080.app.github.dev/chat/datas');
-				if (!response.ok) {
-						throw new Error('Network response was not ok');
-				}
-				let datas = await response.json();
-				console.log(datas);
+let last ="";
 
-				const chat = sessionStorage.getItem("Chat");
-				const bigDiv = document.getElementById("bigDiv");
-				if (datas[chat]) {
-						for (let doc of datas[chat]) {
-								let last = doc._id;
-								const DIV = document.createElement("div");
-								DIV.id = doc._id;
-								DIV.classList.add(doc.Name, "Message");
-								bigDiv.appendChild(DIV);
-
-								const container = document.getElementById(doc._id);
-								const User = document.createElement("h6");
-								User.id = doc._id + "User";
-								User.classList.add(doc.Name + "User", "Message");
-								User.innerHTML = doc.User;
-								container.appendChild(User);
-
-								const Message = document.createElement("p");
-								Message.id = doc._id + "Text";
-								Message.classList.add(doc.Name + "Text", "Message");
-								Message.innerHTML = doc.Message;
-								container.appendChild(Message);
-
-								window.location.href = "#" + last;
-						}
-				} else {
-						console.error("Chat not found in datas");
-				}
-		} catch (error) {
-				console.error("Error fetching data:", error);
+window.onload = () => {
+	fetch('https://reimagined-space-broccoli-9r4rprq5ggqcxg5p-8080.app.github.dev/chat/datas')
+		
+	.then(response => response.json())
+	.then(datas => {
+		const chat = sessionStorage.getItem("Chat");
+		const bigDiv = document.getElementById("bigDiv");
+		if (datas[chat]){
+			for(doc of datas[chat]){
+				const DIV = document.createElement("div");
+				DIV.id = doc._id;
+				DIV.classList.add(doc.Name, "Message");
+				bigDiv.appendChild(DIV);
+				const User = document.createElement("h5");
+				User.id = doc._id + "-User";
+				User.classList.add(doc.Name + "-User", "Message");
+				User.innerHTML = doc.User;
+				DIV.appendChild(User);
+				const Message = document.createElement("p");
+				Message.id = doc._id + "-Text";
+				Message.classList.add(doc.Name + "-Text", "Message");
+				Message.innerHTML = doc.Message;
+				DIV.appendChild(Message);
+				const child = bigDiv.lastElementChild;
+				child.scrollIntoView();
+			}
 		}
+		else if(sessionStorage.getItem("Chat")){
+			const chat = sessionStorage.getItem("Chat");
+			const DIV = document.createElement("div");
+			DIV.id = "CHAT_NOT_FOUND";
+			DIV.classList.add("ALERT", "Message");
+			bigDiv.appendChild(DIV);
+			const container = DIV;
+			const h5 = document.createElement("h5");
+			h5.id = "CHAT_NOT_FOUND h5";
+			h5.classList.add("ALERT-h5", "Message");
+			h5.innerHTML = "ALERT";
+			container.appendChild(h5);
+			const p = document.createElement("p");
+			p.id = "CHAT_NOT_FOUND p";
+			p.classList.add("ALERT-Text", "Message");
+			p.innerHTML = "Welcome to " + chat;
+			container.appendChild(p);
+		}
+		else{
+			window.location.href = "https://reimagined-space-broccoli-9r4rprq5ggqcxg5p-8080.app.github.dev/";
+		}
+	})
 }
-
 socket.on('broadcastMessage', (doc) => {
-	console.log("New broadcastMessage");
-	if (doc["Chat"] == sessionStorage.getItem("Chat")) {
-			const bigDiv = document.getElementById("bigDiv");
+	let bottom = false
+	console.log("New broadcastMessage")
+	if (doc["Chat"] == sessionStorage.getItem("Chat")){
+		const bigDiv = document.getElementById("bigDiv");
+		if ((bigDiv.scrollTop + bigDiv.clientHeight) >= bigDiv.scrollHeight) {
+			bottom = true;
+		}
+		const Client = document.getElementById("Client")
+		if (!Client){
 			const DIV = document.createElement("div");
 			DIV.id = doc._id;
 			DIV.classList.add(doc.Name, "Message");
 			bigDiv.appendChild(DIV);
-
 			const container = document.getElementById(doc._id);
-			const User = document.createElement("h6");
+			const User = document.createElement("h5");
 			User.id = doc._id + "User";
 			User.classList.add(doc.Name + "User", "Message");
 			User.innerHTML = doc.User;
 			container.appendChild(User);
-
 			const Message = document.createElement("p");
 			Message.id = doc._id + "Text";
 			Message.classList.add(doc.Name + "Text", "Message");
 			Message.innerHTML = doc.Message;
 			container.appendChild(Message);
-
-			// Scroll to the bottom of bigDiv
-			bigDiv.scrollTop = bigDiv.scrollHeight;
+	
+			if (bottom) {
+				console.log("bruh");
+				DIV.scrollIntoView();
+			}
+		}
+		else{
+			Client
+		}
 	}
-});
+})
+

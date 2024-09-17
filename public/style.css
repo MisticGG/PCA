@@ -14,7 +14,7 @@ html, body {
 }
 
 body {
-	background-image: url("https://github.com/MisticGG/PCA/blob/main/public/images/home2.png?raw=true");
+	background-image: url("/images/home.jpg");
 	background-size: cover;
 	background-attachment: fixed;
 	transition: background-image 0.5s ease-in-out;

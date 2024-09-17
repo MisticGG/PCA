@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 
   <head>
@@ -18,7 +19,7 @@
 				<a id="room"></a>
 			</div>
 			<div id = "optionsDiv">
-				<a id="options">Options</a>
+				<a onclick="optionsPopup.showModal(); optionsPopupDiv.showModal()" id="options">Options</a>
 			</div>
 		</div>
 		<div id="bigDiv">			
@@ -27,7 +28,7 @@
 
 		<div class="form">			
 			<form class="form" method="POST" id="sender">				
-				<input autocomplete="off" required placeholder="Send a message" id="message" name="Message" type="text">				
+				<input autocomplete="off" required placeholder="Send a message" id="message" name="Message" type="text"/>				
 				<button style="display:none" type="submit">Send</button>
 			</form>
 		</div>
@@ -35,8 +36,9 @@
 			<div id="optionsPopup">
 				<h1>Settings</h1>
 				<h3>Choose background image</h3>
-				<button type="button" id="toggleButton">Change Background</button>
-
+				<input name="uploadBg" type="file" id="bgUpload" class="hidden" style="display:none;">
+				<label for="bgUpload">Select file</label>
+				<h1 onclick="" style="cursor: pointer;">Close</h1>
 			</div>
 		</div>
 		<script>

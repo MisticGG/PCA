@@ -1,21 +1,6 @@
-const images = ['/images/home.jpg', 'https://github.com/MisticGG/PCA/blob/main/public/images/home2.png?raw=true', 'https://github.com/MisticGG/PCA/blob/main/public/images/home3.jpg?raw=true', 'https://github.com/MisticGG/PCA/blob/main/public/images/home4.jpg?raw=true', 'https://github.com/MisticGG/PCA/blob/main/public/images/home5.jpg?raw=true'];
-let currentIndex = 0;
-
-const button = document.getElementById('toggleButton');
-const bd = document.getElementById('chat')
-console.log(bd.lastChild)
-
 let User = "";
 let Chat = "";
 let Message = "";
-
-function updateImage() {
-  currentIndex = (currentIndex + 1);
-  console.log(images[currentIndex])
-  document.style.background ="url(" + images[currentIndex] + ")";
-}
-
-button.addEventListener('click', updateImage);
 
 function handleForm(event) {
   event.preventDefault();
