@@ -43,37 +43,28 @@ window.onload = async () => {
 }
 
 socket.on('broadcastMessage', (doc) => {
-		let bottom = false;
-		console.log("New broadcastMessage");
+	console.log("New broadcastMessage");
+	if (doc["Chat"] == sessionStorage.getItem("Chat")) {
+			const bigDiv = document.getElementById("bigDiv");
+			const DIV = document.createElement("div");
+			DIV.id = doc._id;
+			DIV.classList.add(doc.Name, "Message");
+			bigDiv.appendChild(DIV);
 
-		if (doc["Chat"] == sessionStorage.getItem("Chat")) {
-				const bigDiv = document.getElementById("bigDiv");
-				if ((bigDiv.scrollTop + bigDiv.clientHeight) >= bigDiv.scrollHeight) {
-						bottom = true;
-				}
+			const container = document.getElementById(doc._id);
+			const User = document.createElement("h6");
+			User.id = doc._id + "User";
+			User.classList.add(doc.Name + "User", "Message");
+			User.innerHTML = doc.User;
+			container.appendChild(User);
 
-				const DIV = document.createElement("div");
-				DIV.id = doc._id;
-				DIV.classList.add(doc.Name, "Message");
-				bigDiv.appendChild(DIV);
+			const Message = document.createElement("p");
+			Message.id = doc._id + "Text";
+			Message.classList.add(doc.Name + "Text", "Message");
+			Message.innerHTML = doc.Message;
+			container.appendChild(Message);
 
-				const container = document.getElementById(doc._id);
-				const User = document.createElement("h6");
-				User.id = doc._id + "User";
-				User.classList.add(doc.Name + "User", "Message");
-				User.innerHTML = doc.User;
-				container.appendChild(User);
-
-				const Message = document.createElement("p");
-				Message.id = doc._id + "Text";
-				Message.classList.add(doc.Name + "Text", "Message");
-				Message.innerHTML = doc.Message;
-				container.appendChild(Message);
-
-				if (bottom) {
-						console.log("Scroll to bottom");
-						DIV.scrollIntoView();
-						bottom = false;
-				}
-		}
+			// Scroll to the bottom of bigDiv
+			bigDiv.scrollTop = bigDiv.scrollHeight;
+	}
 });

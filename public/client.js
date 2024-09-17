@@ -18,10 +18,12 @@ async function handleForm2(event){
   Message = document.getElementById('message').value;
   document.getElementById('message').value = "";
   User = sessionStorage.getItem("User");
-	Name = sessionStorage.getItem("User");
+  Name = sessionStorage.getItem("User");
   Chat = sessionStorage.getItem("Chat");
-	const bigDiv = document.getElementById("bigDiv")
-  var data = {User, Name, Chat, Message}
+
+  const bigDiv = document.getElementById("bigDiv");
+  var data = {User, Name, Chat, Message};
+
   try {
     const response = await fetch('/chat', {
       method: 'POST',
@@ -32,18 +34,16 @@ async function handleForm2(event){
     });
     if (response.ok) {
       console.log('Data successfully sent to the server: ', data);
-    }
-    else {
+    } else {
       console.error('Error posting data:', response.statusText);
     }
+  } catch (error) {
+    console.error('Request failed:', error);
   }
-	catch (error) {
-		console.error('Request failed:', error);
-	}
-	const child = bigDiv.lastElementChild;
-	child.scrollIntoView()
-}
 
+  // Scroll to the bottom of bigDiv
+  bigDiv.scrollTop = bigDiv.scrollHeight;
+}
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('form');
   if (form) {
